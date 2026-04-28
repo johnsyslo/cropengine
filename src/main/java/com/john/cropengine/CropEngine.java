@@ -26,7 +26,6 @@ public class CropEngine implements ModInitializer {
 		AutoConfig.register(ModConfig.class, GsonConfigSerializer::new);
 		CONFIG = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
 
-
 		LOGGER.info("Crop Engine loaded.");
 	}
 }
