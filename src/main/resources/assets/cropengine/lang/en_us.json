@@ -11,5 +11,5 @@
   "text.autoconfig.cropengine.option.startSide.@Tooltip": "The side you start on your farm",
   "text.autoconfig.cropengine.option.startSide": "Start Side",
 
-  "key.sba.toggle": "Toggle CropEngine"
+  "key.cropengine.toggle": "Toggle CropEngine"
 }
