@@ -5,6 +5,9 @@
   "text.autoconfig.cropengine.option.minDelay.@Tooltip": "Minimum delay between row switches (ticks)",
   "text.autoconfig.cropengine.option.minDelay": "Minimum Delay",
 
+  "text.autoconfig.cropengine.option.maxDelay.@Tooltip": "Maximum delay between row switches (ticks)",
+  "text.autoconfig.cropengine.option.maxDelay": "Maximum Delay",
+
   "text.autoconfig.cropengine.option.startSide.@Tooltip": "The side you start on your farm",
   "text.autoconfig.cropengine.option.startSide": "Start Side",
 
