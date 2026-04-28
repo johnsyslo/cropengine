@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "cropengine",
+	"version": "${version}",
+	"name": "CropEngine",
+	"description": "",
+	"authors": [
+		"John"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "GNUv3-or-later",
+	"icon": "assets/cropengine/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+          "com.john.cropengine.CropEngine"
+		],
+		"client": [
+			"com.john.cropengine.client.CropEngineClient"
+		],
+		"modmenu": [
+			"com.john.sba.integration.ModMenu"
+		]
+	},
+	"mixins": [
+		"cropengine.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.2",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
