@@ -11,15 +11,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Controller {
 
     private enum State {
-        FARMING,
+        HARVESTING,
         ROW_SWITCH
     }
 
-    private static State currentState = State.FARMING;
+    private static State currentState = State.HARVESTING;
 
     private static boolean strafeRight;
 
-    private static int tickCounter;
+    private static int elapsedTicks;
     private static int requiredTicks;
 
     private static final double FARMING_IDLE_SPEED = 0.01;
@@ -27,83 +27,83 @@ public class Controller {
 
     public static void reset() {
         strafeRight = CropEngine.CONFIG.startSide == ModConfig.StartSide.Right;
-        currentState = State.FARMING;
-        tickCounter = 0;
+        currentState = State.HARVESTING;
+        elapsedTicks = 0;
         requiredTicks = 0;
     }
 
-    public static void tick(MinecraftClient client) {
+    public static void updateTick(MinecraftClient client) {
         if (!CropEngine.CONFIG.enabled) return;
         if (client.player == null) return;
 
         MovementHandler.holdAttack(client);
 
-        double speed = getHorizontalSpeed(client);
+        double horizontalSpeed = getHorizontalSpeed(client);
 
         switch (currentState) {
-            case FARMING -> handleFarming(client, speed);
-            case ROW_SWITCH -> handleRowSwitch(client, speed);
+            case HARVESTING -> handleFarming(client, horizontalSpeed);
+            case ROW_SWITCH -> handleRowSwitch(client, horizontalSpeed);
         }
     }
 
-    private static void handleFarming(MinecraftClient client, double speed) {
+    private static void handleFarming(MinecraftClient client, double horizontalSpeed) {
 
         // Always fully define movement state (no leftovers)
         MovementHandler.strafe(client, strafeRight);
         MovementHandler.stopForward(client);
 
-        if (speed < FARMING_IDLE_SPEED) {
+        if (horizontalSpeed < FARMING_IDLE_SPEED) {
 
-            if (tickCounter == 0) {
-                requiredTicks = getRandomDelay();
+            if (elapsedTicks == 0) {
+                requiredTicks = getTickDelay();
             }
 
-            tickCounter++;
+            elapsedTicks++;
 
-            if (tickCounter >= requiredTicks) {
+            if (elapsedTicks >= requiredTicks) {
                 currentState = State.ROW_SWITCH;
-                tickCounter = 0;
+                elapsedTicks = 0;
                 MovementHandler.stopStrafe(client);
             }
 
         } else {
-            tickCounter = 0;
+            elapsedTicks = 0;
         }
     }
 
-    private static void handleRowSwitch(MinecraftClient client, double speed) {
+    private static void handleRowSwitch(MinecraftClient client, double horizontalSpeed) {
 
         // Fully override movement every tick
         MovementHandler.moveForward(client);
         MovementHandler.stopStrafe(client);
 
-        if (speed < SWITCH_IDLE_SPEED) {
+        if (horizontalSpeed < SWITCH_IDLE_SPEED) {
 
-            if (tickCounter == 0) {
-                requiredTicks = getRandomDelay();
+            if (elapsedTicks == 0) {
+                requiredTicks = getTickDelay();
             }
 
-            tickCounter++;
+            elapsedTicks++;
 
-            if (tickCounter >= requiredTicks) {
+            if (elapsedTicks >= requiredTicks) {
                 strafeRight = !strafeRight;
-                currentState = State.FARMING;
-                tickCounter = 0;
+                currentState = State.HARVESTING;
+                elapsedTicks = 0;
 
                 MovementHandler.stopForward(client);
             }
 
         } else {
-            tickCounter = 0;
+            elapsedTicks = 0;
         }
     }
 
     private static double getHorizontalSpeed(MinecraftClient client) {
-        Vec3d v = client.player.getVelocity();
-        return Math.sqrt(v.x * v.x + v.z * v.z);
+        Vec3d velocityVec = client.player.getVelocity();
+        return Math.sqrt(velocityVec.x * velocityVec.x + velocityVec.z * velocityVec.z);
     }
 
-    private static int getRandomDelay() {
+    private static int getTickDelay() {
         int min = CropEngine.CONFIG.minDelay;
         int max = CropEngine.CONFIG.maxDelay;
 
