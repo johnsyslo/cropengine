@@ -22,7 +22,7 @@
 			"com.john.cropengine.client.CropEngineClient"
 		],
 		"modmenu": [
-			"com.john.sba.integration.ModMenu"
+			"com.john.cropengine.integration.ModMenu"
 		]
 	},
 	"mixins": [

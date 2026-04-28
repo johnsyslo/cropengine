@@ -1,0 +1,12 @@
+{
+  "text.autoconfig.cropengine.title": "CropEngine",
+  "text.autoconfig.cropengine.option.enabled": "Enabled",
+
+  "text.autoconfig.cropengine.option.minDelay.@Tooltip": "Minimum delay between row switches (ticks)",
+  "text.autoconfig.cropengine.option.minDelay": "Minimum Delay",
+
+  "text.autoconfig.cropengine.option.startSide.@Tooltip": "The side you start on your farm",
+  "text.autoconfig.cropengine.option.startSide": "Start Side",
+
+  "key.sba.toggle": "Toggle CropEngine"
+}
