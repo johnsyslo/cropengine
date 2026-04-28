@@ -7,7 +7,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 @Config(name = "cropengine")
 public class ModConfig implements ConfigData {
 
-    public boolean enabled = true;
+    public boolean enabled = false;
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.BoundedDiscrete(min = 1, max = 25)
