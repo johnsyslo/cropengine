@@ -7,6 +7,7 @@ import com.john.cropengine.client.utils.SpeedUtil;
 import com.john.cropengine.client.utils.RandomUtil;
 import com.john.cropengine.config.ModConfig;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.Text;
 
 public class Controller {
 
@@ -21,13 +22,27 @@ public class Controller {
     public static void updateTick(MinecraftClient client) {
         if (!CropEngine.CONFIG.enabled || client.player == null) return;
 
+        if (MovementState.currentState == MovementState.BotState.RESTART) {
+            MovementHandler.stopAll(client);
+            handleRestart(client);
+            return;
+        }
 
-        MovementHandler.toggleAttack(client, MovementState.isAttacking);
+        MovementHandler.toggleAttack(client, MovementState.currentState == MovementState.BotState.HARVEST);
         double horizontalSpeed = SpeedUtil.getHorizontalSpeed(client);
 
         switch (MovementState.currentState) {
-            case HARVESTING -> handleFarming(client, horizontalSpeed);
+            case HARVEST -> handleFarming(client, horizontalSpeed);
             case SWITCH -> rowSwitch(client, horizontalSpeed);
+        }
+    }
+
+    private static void handleRestart(MinecraftClient client) {
+        MovementState.elapsedTicks++;
+
+        if (MovementState.elapsedTicks >= MovementState.requiredTicks) {
+            reset();
+            MovementState.currentState = MovementState.BotState.HARVEST;
         }
     }
 
@@ -43,6 +58,7 @@ public class Controller {
             MovementState.elapsedTicks++;
 
             if (MovementState.elapsedTicks >= MovementState.requiredTicks) {
+                MovementState.switchPos = client.player.getEntityPos();
                 MovementState.currentState = MovementState.BotState.SWITCH;
                 MovementState.elapsedTicks = 0;
             }
@@ -63,12 +79,31 @@ public class Controller {
             MovementState.elapsedTicks++;
 
             if (MovementState.elapsedTicks >= MovementState.requiredTicks) {
+                double distanceMoved = client.player.getEntityPos().distanceTo(MovementState.switchPos);
+
+                if (distanceMoved < 1.0) {
+                    stopAndWarp(client);
+                    return;
+                }
+
                 MovementState.strafeRight = !MovementState.strafeRight;
-                MovementState.currentState = MovementState.BotState.HARVESTING;
+                MovementState.currentState = MovementState.BotState.HARVEST;
                 MovementState.elapsedTicks = 0;
             }
         } else {
             MovementState.elapsedTicks = 0;
         }
+    }
+
+    private static void stopAndWarp(MinecraftClient client) {
+        MovementHandler.stopAll(client);
+
+        if (client.player.networkHandler != null) {
+            client.player.networkHandler.sendChatCommand("warp garden");
+        }
+
+        MovementState.currentState = MovementState.BotState.RESTART;
+        MovementState.elapsedTicks = 0;
+        MovementState.requiredTicks = 65;
     }
 }
