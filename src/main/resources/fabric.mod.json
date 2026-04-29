@@ -3,14 +3,10 @@
 	"id": "cropengine",
 	"version": "${version}",
 	"name": "CropEngine",
-	"description": "",
+	"description": "An automated farming client for Hypixel Skyblock.",
 	"authors": [
 		"John"
 	],
-	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
-	},
 	"license": "GNUv3-or-later",
 	"icon": "assets/cropengine/icon.png",
 	"environment": "*",
