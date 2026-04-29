@@ -1,6 +1,5 @@
 package com.john.cropengine.client.movement;
 
-import com.john.cropengine.CropEngine;
 import net.minecraft.client.MinecraftClient;
 
 
