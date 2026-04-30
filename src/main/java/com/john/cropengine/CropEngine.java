@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public class CropEngine implements ModInitializer {
 	public static final String MOD_ID = "cropengine";
+	public static final String VERSION = "v0.1.1";
 
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod id as the logger's name.
