@@ -1,5 +1,5 @@
 package com.john.cropengine.client;
-
+import com.john.cropengine.client.input.KeyRegistry;
 import com.john.cropengine.client.input.KeyHandler;
 import com.john.cropengine.client.logic.Controller;
 import com.john.cropengine.CropEngine;
@@ -11,7 +11,7 @@ public class CropEngineClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
-        KeyHandler.init();
+        KeyRegistry.init();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null) return;
