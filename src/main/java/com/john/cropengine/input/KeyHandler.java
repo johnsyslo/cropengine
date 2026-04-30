@@ -1,9 +1,8 @@
-package com.john.cropengine.client.input;
+package com.john.cropengine.input;
 
 import com.john.cropengine.CropEngine;
-import com.john.cropengine.client.logic.Controller;
-import com.john.cropengine.client.movement.MovementHandler;
 import com.john.cropengine.utils.ChatHudUtil;
+import com.john.cropengine.logic.Controller;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -19,7 +18,7 @@ public class KeyHandler {
             if (CropEngine.CONFIG.enabled) {
                 Controller.reset();
             } else {
-                MovementHandler.stopAllMovement(client);
+                com.john.cropengine.movement.KeyHandler.stopAll(client);
             }
         }
     }

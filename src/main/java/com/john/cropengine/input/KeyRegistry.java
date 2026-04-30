@@ -1,4 +1,4 @@
-package com.john.cropengine.client.input;
+package com.john.cropengine.input;
 
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;

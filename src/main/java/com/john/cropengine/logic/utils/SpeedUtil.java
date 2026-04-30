@@ -1,4 +1,4 @@
-package com.john.cropengine.client.utils;
+package com.john.cropengine.logic.utils;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;

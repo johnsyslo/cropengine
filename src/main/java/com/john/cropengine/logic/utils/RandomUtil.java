@@ -1,4 +1,4 @@
-package com.john.cropengine.client.utils;
+package com.john.cropengine.logic.utils;
 
 import java.util.concurrent.ThreadLocalRandom;
 
