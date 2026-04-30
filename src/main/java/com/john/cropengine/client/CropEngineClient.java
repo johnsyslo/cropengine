@@ -1,7 +1,7 @@
 package com.john.cropengine.client;
-import com.john.cropengine.client.input.KeyRegistry;
-import com.john.cropengine.client.input.KeyHandler;
-import com.john.cropengine.client.logic.Controller;
+import com.john.cropengine.input.KeyRegistry;
+import com.john.cropengine.input.KeyHandler;
+import com.john.cropengine.logic.Controller;
 import com.john.cropengine.CropEngine;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
