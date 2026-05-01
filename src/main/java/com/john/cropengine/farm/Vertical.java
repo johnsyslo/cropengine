@@ -13,15 +13,13 @@ public class Vertical implements Behavior {
     private static final double SWITCH_IDLE_SPEED = 0.02;
     private static final double DROP_THRESHOLD = 1;
 
-    private double lastStableY = 0.0;
-
     @Override
     public void handleFarming(MinecraftClient client, MovementState state) {
         KeyHandler.toggleDirection(client, state.getDirection());
         double horizontalSpeed = SpeedUtil.getHorizontalSpeed(client);
 
         if (horizontalSpeed > FARMING_IDLE_SPEED) {
-            this.lastStableY = client.player.getY();
+            state.setLastStableY(client.player.getY());
             CropEngine.LOGGER.info(String.valueOf(client.player.getY()));
             state.setElapsedTicks(0);
             return;
@@ -48,7 +46,7 @@ public class Vertical implements Behavior {
     @Override
     public void handleRowSwitch(MinecraftClient client, MovementState state) {
         double horizontalSpeed = SpeedUtil.getHorizontalSpeed(client);
-        double droppedDistance = this.lastStableY - client.player.getY();
+        double droppedDistance = state.getLastStableY() - client.player.getY();
         System.out.println(droppedDistance);
 
         if (droppedDistance >= DROP_THRESHOLD) {

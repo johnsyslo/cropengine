@@ -12,6 +12,8 @@ public class MovementState {
     private BotState currentState = BotState.HARVEST;
     private boolean movingDirection = true;
     private Vec3d switchPos = Vec3d.ZERO;
+
+    private double lastStableY = 0.0;
     private int elapsedTicks = 0;
     private int requiredTicks = 0;
 
@@ -61,7 +63,16 @@ public class MovementState {
         currentState = BotState.HARVEST;
         movingDirection = startRight;
         switchPos = Vec3d.ZERO;
+        lastStableY = 0.0;
         elapsedTicks = 0;
         requiredTicks = 0;
+    }
+
+    public double getLastStableY() {
+        return lastStableY;
+    }
+
+    public void setLastStableY(double lastStableY) {
+        this.lastStableY = lastStableY;
     }
 }
