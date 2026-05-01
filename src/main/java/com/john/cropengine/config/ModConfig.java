@@ -59,4 +59,7 @@ public class ModConfig implements ConfigData {
         Left, Right
     }
 
+    @ConfigEntry.Gui.Tooltip
+    public boolean lockRotation = true;
+
 }
