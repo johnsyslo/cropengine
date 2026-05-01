@@ -3,7 +3,19 @@ plugins {
 	id 'maven-publish'
 }
 
-version = project.mod_version
+def static extractVersion(File file) {
+	def pattern = ~'public static final String VERSION = "(.+)"'
+	def matcher = pattern.matcher(file.text)
+	return matcher.find() ? matcher.group(1) : "unknown"
+}
+
+def mainClassFile = file('src/main/java/com/john/cropengine/CropEngine.java')
+
+version = extractVersion(mainClassFile)
+group = "com.john.cropengine"
+
+println "Detected Mod Version: ${version}"
+
 group = project.maven_group
 
 repositories {
