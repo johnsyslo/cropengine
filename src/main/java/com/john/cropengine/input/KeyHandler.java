@@ -1,6 +1,7 @@
 package com.john.cropengine.input;
 
 import com.john.cropengine.CropEngine;
+import com.john.cropengine.config.ConfigScreenProvider;
 import com.john.cropengine.utils.ChatHudUtil;
 import com.john.cropengine.logic.Controller;
 import net.minecraft.client.MinecraftClient;
@@ -10,8 +11,6 @@ import net.minecraft.util.Formatting;
 public class KeyHandler {
     public static void handleToggle(MinecraftClient client) {
         while (KeyRegistry.toggleKey.wasPressed()) {
-            if (client.player == null) return;
-
             CropEngine.CONFIG.enabled = !CropEngine.CONFIG.enabled;
             sendToggleMessage(client);
 
@@ -20,6 +19,13 @@ public class KeyHandler {
             } else {
                 com.john.cropengine.movement.KeyHandler.stopAll(client);
             }
+        }
+
+        while (KeyRegistry.configKey.wasPressed()) {
+            client.send(() ->
+                    client.setScreen(ConfigScreenProvider.create(client.currentScreen))
+            );
+
         }
     }
 

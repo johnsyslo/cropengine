@@ -1,4 +1,8 @@
 {
+  "key.cropengine.toggle": "Toggle",
+  "key.cropengine.config": "Open Config",
+  "key.category.cropengine.main": "Crop Engine",
+
   "text.autoconfig.cropengine.title": "CropEngine",
   "text.autoconfig.cropengine.option.enabled": "Enabled",
 
@@ -9,7 +13,5 @@
   "text.autoconfig.cropengine.option.maxDelay": "Maximum Delay",
 
   "text.autoconfig.cropengine.option.startSide.@Tooltip": "The side you start on your farm",
-  "text.autoconfig.cropengine.option.startSide": "Start Side",
-
-  "key.cropengine.toggle": "Toggle CropEngine"
+  "text.autoconfig.cropengine.option.startSide": "Start Side"
 }
