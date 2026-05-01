@@ -1,8 +1,7 @@
 package com.john.cropengine.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import me.shedaniel.autoconfig.AutoConfig;
-import com.john.cropengine.config.ModConfig;
+import com.john.cropengine.config.ConfigScreenProvider;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
 
@@ -17,7 +16,7 @@ public class CropEngineCommand {
                             MinecraftClient client = MinecraftClient.getInstance();
                             client.send(() ->
                                     client.setScreen(
-                                            AutoConfig.getConfigScreen(ModConfig.class, client.currentScreen).get()
+                                            ConfigScreenProvider.create(client.currentScreen)
                                     )
                             );
                             return 1;
