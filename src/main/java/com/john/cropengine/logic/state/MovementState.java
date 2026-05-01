@@ -47,9 +47,7 @@ public class MovementState {
         this.elapsedTicks = elapsedTicks;
     }
 
-    public void incrementElapsedTicks() {
-        elapsedTicks++;
-    }
+    public void incrementElapsedTicks() { elapsedTicks++; }
 
     public int getRequiredTicks() {
         return requiredTicks;
