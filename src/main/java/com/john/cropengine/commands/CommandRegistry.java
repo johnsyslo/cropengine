@@ -7,6 +7,7 @@ public class CommandRegistry {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
             YeetCommand.register(dispatcher);
             CropEngineCommand.register(dispatcher);
+            LookCommand.register(dispatcher);
         });
     }
 }
