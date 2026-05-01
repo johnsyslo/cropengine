@@ -30,14 +30,15 @@ public final class ConfigScreenProvider {
         AtomicReference<Integer> minDelay = new AtomicReference<>(config.minDelay);
         AtomicReference<Integer> maxDelay = new AtomicReference<>(config.maxDelay);
         AtomicReference<ModConfig.StartSide> startSide = new AtomicReference<>(config.startSide);
+        AtomicReference<Boolean> lockRotation = new AtomicReference<>(config.lockRotation);
 
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(parent)
-                .setTitle(Text.literal("CropEngine Settings"));
-        ConfigCategory general = builder.getOrCreateCategory(Text.literal("General"));
+                .setTitle(Text.translatable("text.autoconfig.cropengine.title"));
+        ConfigCategory general = builder.getOrCreateCategory(Text.translatable("text.cropengine.config.category.general"));
         ConfigEntryBuilder entries = builder.entryBuilder();
 
-        var enabledEntry = entries.startBooleanToggle(Text.literal("Enabled"), enabled.get())
+        var enabledEntry = entries.startBooleanToggle(Text.translatable("text.autoconfig.cropengine.option.enabled"), enabled.get())
                 .setDefaultValue(false)
                 .setSaveConsumer(enabled::set)
                 .build();
@@ -61,23 +62,32 @@ public final class ConfigScreenProvider {
                 .setDisplayRequirement(Requirement.isValue(cropTypeEntry, ModConfig.CropType.Carrot))
                 .build();
 
-        var minDelayEntry = entries.startIntField(Text.literal("Min Delay"), minDelay.get())
+        var minDelayEntry = entries.startIntField(Text.translatable("text.autoconfig.cropengine.option.minDelay"), minDelay.get())
+                .setTooltip(Text.translatable("text.autoconfig.cropengine.option.minDelay.@Tooltip"))
                 .setDefaultValue(10)
                 .setMin(1)
                 .setMax(25)
                 .setSaveConsumer(minDelay::set)
                 .build();
 
-        var maxDelayEntry = entries.startIntField(Text.literal("Max Delay"), maxDelay.get())
+        var maxDelayEntry = entries.startIntField(Text.translatable("text.autoconfig.cropengine.option.maxDelay"), maxDelay.get())
+                .setTooltip(Text.translatable("text.autoconfig.cropengine.option.maxDelay.@Tooltip"))
                 .setDefaultValue(30)
                 .setMin(25)
                 .setMax(50)
                 .setSaveConsumer(maxDelay::set)
                 .build();
 
-        var startSideEntry = entries.startEnumSelector(Text.literal("Start Side"), ModConfig.StartSide.class, startSide.get())
+        var startSideEntry = entries.startEnumSelector(Text.translatable("text.autoconfig.cropengine.option.startSide"), ModConfig.StartSide.class, startSide.get())
+                .setTooltip(Text.translatable("text.autoconfig.cropengine.option.startSide.@Tooltip"))
                 .setDefaultValue(ModConfig.StartSide.Right)
                 .setSaveConsumer(startSide::set)
+                .build();
+
+        var lockRotationEntry = entries.startBooleanToggle(Text.translatable("text.autoconfig.cropengine.option.lockRotation"), lockRotation.get())
+                .setTooltip(Text.translatable("text.autoconfig.cropengine.option.lockRotation.@Tooltip"))
+                .setDefaultValue(false)
+                .setSaveConsumer(lockRotation::set)
                 .build();
 
         general.addEntry(enabledEntry);
@@ -87,6 +97,7 @@ public final class ConfigScreenProvider {
         general.addEntry(minDelayEntry);
         general.addEntry(maxDelayEntry);
         general.addEntry(startSideEntry);
+        general.addEntry(lockRotationEntry);
 
         builder.setSavingRunnable(() -> {
             config.enabled = enabled.get();
@@ -97,6 +108,7 @@ public final class ConfigScreenProvider {
             config.minDelay = minDelay.get();
             config.maxDelay = maxDelay.get();
             config.startSide = startSide.get();
+            config.lockRotation = lockRotation.get();
             AutoConfig.getConfigHolder(ModConfig.class).save();
         });
 

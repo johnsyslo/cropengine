@@ -13,5 +13,8 @@
   "text.autoconfig.cropengine.option.maxDelay": "Maximum Delay",
 
   "text.autoconfig.cropengine.option.startSide.@Tooltip": "The side you start on your farm",
-  "text.autoconfig.cropengine.option.startSide": "Start Side"
+  "text.autoconfig.cropengine.option.startSide": "Start Side",
+
+  "text.autoconfig.cropengine.option.lockRotation.@Tooltip": "Lock player rotation when holding farming tool",
+  "text.autoconfig.cropengine.option.lockRotation": "Lock Rotation"
 }
