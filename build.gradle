@@ -16,8 +16,6 @@ group = "com.john.cropengine"
 
 println "Detected Mod Version: ${version}"
 
-group = project.maven_group
-
 repositories {
 	// Add repositories to retrieve artifacts from in here.
 	// You should only use this when depending on other mods because
